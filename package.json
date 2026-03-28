@@ -1,0 +1,27 @@
+{
+  "name": "pos-printer-system",
+  "version": "1.0.0",
+  "description": "Build a fully Dockerized POS printer system with Redis queue (BullMQ), Prevent duplicate printing, Multi-printer support, Fake printer function (for testing without real printers)",
+  "scripts": {
+    "dev": "node src/app.js",
+    "worker": "node src/workers/printWorker.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/htetsoemoe/pos-printer-system.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/htetsoemoe/pos-printer-system/issues"
+  },
+  "homepage": "https://github.com/htetsoemoe/pos-printer-system#readme",
+  "dependencies": {
+    "bullmq": "^5.71.1",
+    "express": "^5.2.1",
+    "ioredis": "^5.10.1",
+    "uuid": "^13.0.0"
+  }
+}
