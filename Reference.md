@@ -45,6 +45,22 @@ This project currently includes:
 
 ## Runtime Architecture
 
+```mermaid
+flowchart LR
+    Client[POS Client] -->|POST /api/order| API[Express API<br/>src/app.js]
+    API --> Router[Order Router<br/>src/routes/orderRoutes.js]
+    Router --> Controller[Order Controller<br/>src/controllers/orderController.js]
+
+    Controller -->|SET duplicate-order hash<br/>EX 30 NX| Redis[(Redis)]
+    Controller -->|Add KITCHEN and BAR jobs| Queue[BullMQ Queue<br/>print-jobs]
+    Queue --> Redis
+
+    Redis --> Worker[Print Worker<br/>src/workers/printWorker.js]
+    Worker --> Service[Print Service<br/>src/services/printService.js]
+    Service --> Kitchen[Kitchen Printer<br/>KITCHEN]
+    Service --> Bar[Bar Printer<br/>BAR]
+```
+
 The request and print flow works like this:
 
 1. A client sends `POST /api/order`.
